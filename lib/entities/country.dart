@@ -7,7 +7,8 @@ class Country extends Equatable {
   final String commonName;
   final String officialName;
   final String flagUrl;
-  final String flagEmoji; // respaldo si la imagen no existe
+  final String flagEmoji;
+  final String subregion; // respaldo si la imagen no existe
   final String region;
   final String capital;
   final int population;
@@ -22,6 +23,7 @@ class Country extends Equatable {
     required this.officialName,
     required this.flagUrl,
     required this.flagEmoji,
+    required this.subregion,
     required this.region,
     required this.capital,
     required this.population,

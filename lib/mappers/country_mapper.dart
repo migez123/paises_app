@@ -13,6 +13,7 @@ class CountryMapper {
       // Usamos PNG porque Image.network no dibuja SVG.
       flagUrl: model.flag.urlPng ?? '',
       flagEmoji: model.flag.emoji ?? '',
+      subregion: model.subregion ?? '',
       region: model.region ?? 'Sin región',
       capital: _capital(model.capitals),
       population: model.population ?? 0,
@@ -37,9 +38,10 @@ class CountryMapper {
 
   /// Ej: "Peso colombiano (COP $)"
   static String _currency(CurrencyModel currency) {
-    final details = [currency.code, currency.symbol]
-        .whereType<String>()
-        .join(' ');
+    final details = [
+      currency.code,
+      currency.symbol,
+    ].whereType<String>().join(' ');
     final name = currency.name ?? 'Moneda';
     return details.isEmpty ? name : '$name ($details)';
   }

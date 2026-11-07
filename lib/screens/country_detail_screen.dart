@@ -32,23 +32,23 @@ class CountryDetailScreen extends StatelessWidget {
         builder: (context, state) {
           return switch (state) {
             CountryDetailLoading() => Column(
-                children: [
-                  if (preview != null)
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: _BigFlag(country: preview!),
-                    ),
-                  const Expanded(
-                    child: LoadingView(message: 'Cargando detalle...'),
+              children: [
+                if (preview != null)
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: _BigFlag(country: preview!),
                   ),
-                ],
-              ),
+                const Expanded(
+                  child: LoadingView(message: 'Cargando detalle...'),
+                ),
+              ],
+            ),
             CountryDetailError(:final message) => ErrorView(
-                message: message,
-                onRetry: () => context
-                    .read<CountryDetailBloc>()
-                    .add(CountryDetailRequested(code)),
+              message: message,
+              onRetry: () => context.read<CountryDetailBloc>().add(
+                CountryDetailRequested(code),
               ),
+            ),
             CountryDetailSuccess(:final country) => _DetailBody(country),
           };
         },
@@ -105,8 +105,9 @@ class _DetailBody extends StatelessWidget {
         // Nombre común y oficial
         Text(
           country.commonName,
-          style: textTheme.headlineMedium
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 4),
         Text(
@@ -136,7 +137,7 @@ class _DetailBody extends StatelessWidget {
           right: InfoTile(
             icon: Icons.public,
             label: 'Región',
-            value: regionName(country.region),
+            value: '${regionName(country.region)} · ${country.subregion}',
           ),
         ),
         const SizedBox(height: 12),
